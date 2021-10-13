@@ -6,16 +6,17 @@ from cogs.util import pyson
 from cogs.util.errorhandling import NotAuthorized
 import aiohttp
 
+intents = discord.Intents.default()
+
 
 def get_prefix(bot, message):
-    bot.serverconfig = pyson.Pyson(f'data/servers/{str(message.guild.id)}/config.json')
-    prefix = bot.serverconfig.data.get('config').get('prefix')
+    prefix = "!"
     if not prefix:
         prefix = '!'
     return commands.when_mentioned_or(*prefix)(bot, message)
 
 
-bot = commands.AutoShardedBot(command_prefix=get_prefix, formatter=None)
+bot = commands.AutoShardedBot(command_prefix=get_prefix, formatter=None, intents=intents)
 
 
 @bot.event
@@ -102,4 +103,4 @@ async def create_aiohttp():
 bot.config = pyson.Pyson('data/config/startup.json')
 load_extensions()
 bot.loop.create_task(create_aiohttp())
-bot.run(bot.config.data.get('config').get('discord_token'), bot=True, reconnect=True)
+bot.run('NDUxMTUzNzczODU5OTYyODgx.Ww3XsQ.O7wPgSDsIyjPPAznBhAN9sucVw4', bot=True, reconnect=True)

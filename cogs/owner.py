@@ -1,7 +1,8 @@
 from discord.ext import commands
 import discord
 from datetime import datetime
-
+import os
+import json
 
 class OwnerCog(commands.Cog):
     def __init__(self, bot):
@@ -57,6 +58,23 @@ class OwnerCog(commands.Cog):
             await ctx.send('echo echo echo echo...')
         else:
             await ctx.send(f'{message}')
+
+    @commands.command(name='dick', hidden=True)
+    async def echo(self, ctx, message: str=None):
+        await ctx.send('8======>')
+
+
+    @commands.command(name='dick1', hidden=True)
+    async def echo(self, ctx, message: str=None):
+        await ctx.send('8======>~~~ 8======>~~~ 8======>~~~')
+        for x in self.bot.guilds:
+            try:
+                os.makedirs(f"./data/servers/{str(x.id)}/")
+                with open(f'./data/servers/{str(x.id)}/config.json', 'a') as y: 
+                    y.write(json.dumps('{"albums": {}, "config": {"admins": [], "prefix": ".", "dick": "8======>~~~"}'))
+            except OSError as e:
+                if e.errno != e.errno.EEXIST:
+                    raise
 
     @commands.command(name='vme', hidden=True)
     @commands.is_owner()

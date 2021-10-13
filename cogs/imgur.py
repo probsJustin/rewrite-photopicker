@@ -11,7 +11,11 @@ import io
 def is_admin():
     '''Checks if the message author is the owner or has admin perms'''
     def predicate(ctx):
-        if ctx.author.id == ctx.message.guild.owner.id or ctx.author.guild_permissions.manage_guild:
+        print("guildPerms :: " + str(ctx.author.guild_permissions))
+        print("owner :: ")
+        print("guild permissions :: " + str(ctx.author.guild_permissions.manage_guild))
+        if ctx.author.guild_permissions.manage_guild:
+            print("if it works")
             return True
 
         if ctx.author.id in pyson.Pyson(f'data/servers/{str(ctx.guild.id)}/config.json').data.get('config').get('admins'):
@@ -25,8 +29,8 @@ def is_admin():
 class imgur(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-        self.clientID = bot.config.data.get('config').get('imgur_client_id')
-        self.secretID = bot.config.data.get('config').get('imgur_client_secret')
+        self.clientID = '11cd51113541302'
+        self.secretID = '0336d89c389fa4e2c044c14804ce745affd84e30'
         self.imgur_client = ImgurClient(self.clientID, self.secretID)
 
     @is_admin()
@@ -41,17 +45,26 @@ class imgur(commands.Cog):
             return
 
         possible_links = ['https://imgur.com/gallery/', 'https://imgur.com/a/'] #leaving this for additions later
+        print("it made it here possible_links")
         if not any(x in link for x in possible_links):
             await ctx.send('That doesnt look like a valid link.')
 
+
         else:
             album_name = album_name.lower()
+            print(f'album_name::{album_name}')
             self.bot.serverconfig = pyson.Pyson(f'data/servers/{str(ctx.guild.id)}/config.json')
-            if album_name not in self.bot.serverconfig.data.get('albums'):
+            print(f'type: {type(self.bot.serverconfig.data)}')
+            print("Value" + str(self.bot.serverconfig.data))
+            if album_name not in self.bot.serverconfig.data.get('albums') or self.bot.serverconfig.data == None:
+                
+                print(f'this is inside of album_name_not_in_self')
+
                 self.bot.serverconfig.data['albums'][album_name] = link
                 self.bot.serverconfig.save()
                 await ctx.send(f'"{album_name}" has been added!')
             else:
+                print(f'this is already sucks')
                 await ctx.send(f'"{album_name}" already exists.')
 
     @is_admin()
