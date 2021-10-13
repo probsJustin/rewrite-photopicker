@@ -103,4 +103,4 @@ async def create_aiohttp():
 bot.config = pyson.Pyson('data/config/startup.json')
 load_extensions()
 bot.loop.create_task(create_aiohttp())
-bot.run('NDUxMTUzNzczODU5OTYyODgx.Ww3XsQ.O7wPgSDsIyjPPAznBhAN9sucVw4', bot=True, reconnect=True)
+bot.run('<discord token>', bot=True, reconnect=True)

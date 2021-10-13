@@ -29,8 +29,8 @@ def is_admin():
 class imgur(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-        self.clientID = '11cd51113541302'
-        self.secretID = '0336d89c389fa4e2c044c14804ce745affd84e30'
+        self.clientID = ''
+        self.secretID = ''
         self.imgur_client = ImgurClient(self.clientID, self.secretID)
 
     @is_admin()
