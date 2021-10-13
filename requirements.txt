@@ -1,0 +1,4 @@
+discord.py==1.7.3
+imgurpython==1.1.7
+aiosqlite==0.17.0
+jthon==1.0.2
